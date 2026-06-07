@@ -2,18 +2,10 @@
 
 Minimal Vite + Three.js Rubik cube solver game.
 
-## Project location
-
-This project is stored in:
-
-```text
-/Users/rafa/Desarrollo/Rubik's cube solver
-```
-
 ## Run locally
 
 ```bash
-cd "/Users/rafa/Desarrollo/Rubik's cube solver"
+cd "PATH-to- Rubik's cube solver"
 npm install
 npm run dev
 ```
@@ -21,7 +13,7 @@ npm run dev
 ## Build for deployment
 
 ```bash
-cd "/Users/rafa/Desarrollo/Rubik's cube solver"
+cd "PATH-to- Rubik's cube solver"
 npm run build
 npm run preview
 ```
