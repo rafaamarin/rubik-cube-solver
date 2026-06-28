@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
     <meta name="theme-color" content="#05070a" />
     <title>Rubik Solver Game</title>
     <style>
@@ -45,6 +48,30 @@
           <button type="button" id="undoButton">Undo</button>
           <button type="button" id="resetViewButton">View</button>
         </nav>
+
+        <section class="education-panel" aria-label="Step-by-step solver guide">
+          <div class="education-head">
+            <span id="educationPhase" class="eyebrow">Phase 2 - Work backward</span>
+            <strong id="educationMove">R</strong>
+          </div>
+          <p id="educationBrief">Step 1 of 12: follow the inverse move.</p>
+          <div class="notation-row">
+            <span>Scramble</span>
+            <code id="scrambleNotation">R U F</code>
+          </div>
+          <details class="algorithm-details">
+            <summary>Algorithm logic</summary>
+            <p id="setupText">
+              First copy this scramble on your real cube. Then solve by applying the inverse moves in
+              order.
+            </p>
+            <p id="algorithmDetail">Read the scramble backward and apply the inverse turn.</p>
+            <div class="notation-row">
+              <span>Solution</span>
+              <code id="solutionNotation">F' U' R'</code>
+            </div>
+          </details>
+        </section>
 
         <section class="move-pad" aria-label="Cube moves">
           <div class="move-buttons">

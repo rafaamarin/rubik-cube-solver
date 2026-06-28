@@ -1,4 +1,5 @@
 import "./styles.css";
+import { createSolveNarration } from "./education/solveNarration";
 import { addAppliedMove, createGameState, getNextHintMove, type GameState } from "./game/gameState";
 import { OrbitInput } from "./input/orbitControls";
 import { createSceneApp } from "./render/createScene";
@@ -25,6 +26,7 @@ if (!sceneRoot) {
 }
 
 const sceneApp = createSafeSceneApp(sceneRoot);
+bindMobileZoomGuard();
 
 if (sceneApp) {
   startGame(sceneApp);
@@ -237,6 +239,11 @@ function startGame(sceneApp: ReturnType<typeof createSceneApp>): void {
       moveCount: gameState.moveCount,
       remainingSteps: gameState.appliedMoves.length,
       currentHint: gameState.currentHint,
+      narration: createSolveNarration(
+        gameState.scramble.moves,
+        gameState.appliedMoves,
+        gameState.phase,
+      ),
       completionMs: gameState.completionMs,
       bestMs,
       undoAvailable: undoStack.length > 0,
@@ -283,4 +290,18 @@ function disableControls(): void {
   document.querySelectorAll<HTMLButtonElement>("button").forEach((button) => {
     button.disabled = true;
   });
+}
+
+function bindMobileZoomGuard(): void {
+  const preventDefault = (event: Event) => event.preventDefault();
+  const preventMultiTouch = (event: TouchEvent) => {
+    if (event.touches.length > 1) {
+      event.preventDefault();
+    }
+  };
+
+  document.addEventListener("gesturestart", preventDefault, { passive: false });
+  document.addEventListener("gesturechange", preventDefault, { passive: false });
+  document.addEventListener("gestureend", preventDefault, { passive: false });
+  document.addEventListener("touchmove", preventMultiTouch, { passive: false });
 }

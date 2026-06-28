@@ -1,5 +1,6 @@
 import { createMove, type Face, FACES, type Move } from "../simulation/moves";
 import { formatTime } from "../storage/timerStorage";
+import type { SolveNarration } from "../education/solveNarration";
 
 export interface HudSnapshot {
   phase: "playing" | "complete";
@@ -7,6 +8,7 @@ export interface HudSnapshot {
   moveCount: number;
   remainingSteps: number;
   currentHint: Move | null;
+  narration: SolveNarration;
   completionMs: number | null;
   bestMs: number | null;
   undoAvailable: boolean;
@@ -25,6 +27,13 @@ export function createHud(callbacks: HudCallbacks) {
   const objectiveText = getElement("objectiveText");
   const statusText = getElement("statusText");
   const assistText = getElement("assistText");
+  const educationPhase = getElement("educationPhase");
+  const educationMove = getElement("educationMove");
+  const educationBrief = getElement("educationBrief");
+  const setupText = getElement("setupText");
+  const algorithmDetail = getElement("algorithmDetail");
+  const scrambleNotation = getElement("scrambleNotation");
+  const solutionNotation = getElement("solutionNotation");
   const guidePanel = getElement("guidePanel");
   const guideKicker = getElement("guideKicker");
   const guideMove = getElement("guideMove");
@@ -79,6 +88,13 @@ export function createHud(callbacks: HudCallbacks) {
         : snapshot.currentHint
           ? "The highlighted slice is your next turn."
           : "Hint reveals the next turn.";
+      educationPhase.textContent = snapshot.narration.phaseTitle;
+      educationMove.textContent = snapshot.narration.currentMove ?? "Solved";
+      educationBrief.textContent = snapshot.narration.briefText;
+      setupText.textContent = snapshot.narration.setupText;
+      algorithmDetail.textContent = snapshot.narration.detailText;
+      scrambleNotation.textContent = snapshot.narration.scrambleNotation;
+      solutionNotation.textContent = snapshot.narration.solutionNotation;
       hintButton.disabled = snapshot.busy || snapshot.remainingSteps === 0 || complete;
       stepButton.disabled = snapshot.busy || snapshot.remainingSteps === 0 || complete;
       undoButton.disabled = snapshot.busy || !snapshot.undoAvailable || complete;
